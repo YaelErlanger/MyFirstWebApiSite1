@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="UserDetails.js"></script>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <span>Hello </span>
+    <script id="welcoming"> sessionStorage.getItem("password")</script>
+    <button onclick="showUpdateTags()">Update Details</button>
+    <div id="update" style="visibility:hidden">
+        <label>User Name</label>
+        <input id="updateName" /> <br />
+        <label>Password</label>
+        <input id="updatePassword" type="password" /> <progress value="0.5"></progress> <br /><br />
+        <label>First Name</label>
+        <input id="updateFName" /> <br />
+        <label>Last Name</label>
+        <input id="updateLName" /> <br />
+        <button onclick="updateUserDetails()">Update</button>
+    </div>
+</body>
+</html>
