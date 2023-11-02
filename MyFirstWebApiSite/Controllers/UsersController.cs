@@ -55,7 +55,7 @@ namespace MyFirstWebApiSite.Controllers
                 user= _userServices.addUserToDB(user);
                 if (user!=null)
                     return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
-                return BadRequest();
+                return BadRequest(user);
             }
             catch(Exception ex)
             {

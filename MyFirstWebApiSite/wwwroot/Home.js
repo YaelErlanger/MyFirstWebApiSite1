@@ -43,15 +43,16 @@ const fetchPwdStrength = async (password) => {
         return result
     }
         //    alert("error ..., please try again")
-        console.log(ex)   
+       
     
-    }
+ 
 
 const checkPwdStrength = async () => {
-    try {
+   
         const passInput = document.getElementById("regPassword")
         const password = passInput.value
         const progress = document.getElementById("progress")
+    try {
         const result= await fetchPwdStrength(password)
         if (result < 2) {
             alert("easy password... choose a differrent one")
@@ -100,25 +101,21 @@ async function Register() {
         sessionStorage.setItem("FirstName", FirstName)
         sessionStorage.setItem("LastName", LastName)
         alert(`Welcome! ${FirstName} `)
+        window.location.href = "UserDetails.html?firstName=" + data.firstName
+
     }
     catch (er) {
-        alert(er)
+       // alert(er)
     } 
 }
 async function Login () {
-    try {
+   
         const UserName = document.getElementById("logName").value
         const Password = document.getElementById("logPassword").value
-
-        const res = await fetch(`api/Users/?email=${UserName}&password=${Password}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+    try {
+        const res = await fetch(`api/Users/?email=${UserName}&password=${Password}`);
         if (res.status == 204) {
             alert("user not found")
-            ShowRegisterTags()
             return;
         }
         if (!res.ok) { 
@@ -129,7 +126,7 @@ async function Login () {
         console.log(data)
         sessionStorage.setItem("Password", data.password)
         sessionStorage.setItem("UserName", data.userName)
-        window.location.href = "UserDetails.html?firstName=" + data.firstName
+        window.location.href = "userDetails.html";
     }
 
     catch (er) {
