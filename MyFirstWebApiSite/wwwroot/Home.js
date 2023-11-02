@@ -126,7 +126,7 @@ async function Login () {
         console.log(data)
         sessionStorage.setItem("Password", data.password)
         sessionStorage.setItem("UserName", data.userName)
-        window.location.href = "userDetails.html";
+        window.location.href = "userDetails.html?firstName=" + data.firstName;
     }
 
     catch (er) {
