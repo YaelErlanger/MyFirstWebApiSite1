@@ -1,3 +1,5 @@
+using Entities;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
 
@@ -8,7 +10,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddControllers();
-
+builder.Services.AddDbContext<Store326659356Context>(option => option.UseSqlServer("Server=srv2\\pupils;Database=Store_326659356;Trusted_Connection=True;TrustServerCertificate=True"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -26,7 +26,7 @@ const goToRegister = () => {
 }
 
 const fetchPwdStrength = async (password) => {
-    debugger
+   
         const res = await fetch("api/Users/checkYourPass", {
             method: "POST",
             headers: {
@@ -38,7 +38,7 @@ const fetchPwdStrength = async (password) => {
 
         if (!res.ok)
             throw new Error("error in checking pwd strength")
-        debugger;
+        ;
         const result = await res.json();
         return result
     }
@@ -101,7 +101,7 @@ async function Register() {
         sessionStorage.setItem("FirstName", FirstName)
         sessionStorage.setItem("LastName", LastName)
         alert(`Welcome! ${FirstName} `)
-        window.location.href = "UserDetails.html?firstName=" + data.firstName
+        window.location.href = "UserDetails.html";
 
     }
     catch (er) {
