@@ -15,20 +15,20 @@ namespace Services
             _userRepository = userRepository;
         }
 
-        public User addUserToDB(User user)
+        public async Task<UsersTbl> addUserToDB(UsersTbl user)
         {
             int result = validatePassword(user.Password);
             if (result < 2)
                 return null;
-            return _userRepository.addUserToDB(user);
+            return await _userRepository.addUserToDB(user);
         }
 
-        public async  Task<User> getUserByEmailAndPassword(string email, string password)
+        public async  Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
         {
             return await _userRepository.getUserByEmailAndPassword(email, password);
         }
 
-        public async  Task<int> updateUserDetails(int id, User userToUpdate)
+        public async  Task<int> updateUserDetails(int id, UsersTbl userToUpdate)
         {
             int result = validatePassword(userToUpdate.Password);
             if (result < 2)

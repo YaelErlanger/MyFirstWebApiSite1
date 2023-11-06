@@ -40,7 +40,7 @@ namespace MyFirstWebApiSite.Controllers
         [HttpGet]
         public async Task<ActionResult> Get([FromQuery] string email, [FromQuery] string password)
         {
-            User user =await  _userServices.getUserByEmailAndPassword(email, password);
+            UsersTbl user =await  _userServices.getUserByEmailAndPassword(email, password);
             if (user != null)
                 return Ok(user);
              return NoContent();
@@ -48,11 +48,11 @@ namespace MyFirstWebApiSite.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public ActionResult Post([FromBody] User user)
+        public async Task<ActionResult> Post([FromBody] UsersTbl user)
         {
             try
             {
-                user= _userServices.addUserToDB(user);
+                user=await _userServices.addUserToDB(user);
                 if (user!=null)
                     return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
                 return BadRequest(user);
@@ -65,7 +65,7 @@ namespace MyFirstWebApiSite.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] User userToUpdate)
+        public async Task<ActionResult> Put(int id, [FromBody] UsersTbl userToUpdate)
         {
             int result =await _userServices.updateUserDetails(id, userToUpdate);
             if(result==0)

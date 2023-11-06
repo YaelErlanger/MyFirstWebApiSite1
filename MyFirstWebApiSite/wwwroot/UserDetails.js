@@ -7,17 +7,17 @@ const showUpdateTags = () => {
 
 async function updateUserDetails() {
     try {
-        const UserName = document.getElementById("updateName").value
+        const Email = document.getElementById("updateName").value
         const Password = document.getElementById("updatePassword").value
         const FirstName = document.getElementById("updateFName").value
         const LastName = document.getElementById("updateLName").value
-        const user = { UserName, Password, FirstName, LastName }
+        const user = { Email, Password, FirstName, LastName }
         let id;
 
         try {
-            const storagedUserName = sessionStorage.getItem("UserName")
+            const storagedEmail = sessionStorage.getItem("Email")
             const storagedPassword = sessionStorage.getItem("Password")
-            const res = await fetch(`api/Users/?email=${storagedUserName}&password=${storagedPassword}`, {
+            const res = await fetch(`api/Users/?email=${storagedEmail}&password=${storagedPassword}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"

@@ -72,7 +72,7 @@ const checkPwdStrength = async () => {
 async function Register() {
 
     try {
-        const UserName = document.getElementById("regName").value
+        const Email = document.getElementById("regName").value
         const Password = document.getElementById("regPassword").value
         const FirstName = document.getElementById("regFName").value
         const LastName = document.getElementById("regLName").value
@@ -84,7 +84,7 @@ async function Register() {
             return
         }
 
-        const user = { UserName, Password, FirstName, LastName }
+        const user = { Email, Password, FirstName, LastName }
         const res = await fetch("api/Users", {
             method: "POST",
             headers: {
@@ -110,10 +110,10 @@ async function Register() {
 }
 async function Login () {
    
-        const UserName = document.getElementById("logName").value
+    const Email = document.getElementById("logName").value
         const Password = document.getElementById("logPassword").value
     try {
-        const res = await fetch(`api/Users/?email=${UserName}&password=${Password}`);
+        const res = await fetch(`api/Users/?email=${Email}&password=${Password}`);
         if (res.status == 204) {
             alert("user not found")
             return;
@@ -125,7 +125,7 @@ async function Login () {
         const data = await res.json();
         console.log(data)
         sessionStorage.setItem("Password", data.password)
-        sessionStorage.setItem("UserName", data.userName)
+        sessionStorage.setItem("Email", data.Email)
         window.location.href = "userDetails.html?firstName=" + data.firstName;
     }
 
