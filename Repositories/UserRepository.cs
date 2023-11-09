@@ -32,11 +32,11 @@ namespace Repositories
          
         }
 
-        public async Task<bool> updateUserDetails( UsersTbl userToUpdate)
+        public async Task updateUserDetails(int id, UsersTbl userToUpdate)
         {
             _store326659356Context.UsersTbls.Update(userToUpdate);
             await _store326659356Context.SaveChangesAsync();
-            return false;
+           
         }
 
     }

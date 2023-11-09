@@ -28,15 +28,13 @@ namespace Services
             return await _userRepository.getUserByEmailAndPassword(email, password);
         }
 
-        public async  Task<int> updateUserDetails(UsersTbl userToUpdate)
+        public async  Task<int> updateUserDetails(int id,UsersTbl userToUpdate)
         {
             int result = validatePassword(userToUpdate.Password);
             if (result < 2)
                 return 1;
-            bool res = await _userRepository.updateUserDetails(userToUpdate);
-            if (res)
-                return 0;
-            return 2;
+            await _userRepository.updateUserDetails(id,userToUpdate);
+            return 0;
         }
 
         public int validatePassword(string password)
