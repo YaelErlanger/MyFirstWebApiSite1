@@ -15,7 +15,7 @@ namespace Repositories
         }
         
 
-        private const string filePath = "C:\\Users\\User\\Desktop\\MyFirstWebApiSite\\Users";
+        
         public async Task<UsersTbl> addUserToDB(UsersTbl user)
         {
             await _store326659356Context.UsersTbls.AddAsync(user);
