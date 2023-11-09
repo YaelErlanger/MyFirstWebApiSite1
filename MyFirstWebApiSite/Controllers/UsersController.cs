@@ -65,14 +65,15 @@ namespace MyFirstWebApiSite.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] UsersTbl userToUpdate)
+        public async Task<ActionResult> Put( int id,[FromBody] UsersTbl userToUpdate)
         {
-            int result =await _userServices.updateUserDetails(id, userToUpdate);
+            userToUpdate.UserId = id;
+            int result =await _userServices.updateUserDetails(userToUpdate);
             if(result==0)
                 return Ok(User);
             if (result == 1)
-                return BadRequest();
-            return BadRequest();
+                return BadRequest("password is not strong enougth");
+           return BadRequest();
         }
 
         // DELETE api/<UsersController>/5

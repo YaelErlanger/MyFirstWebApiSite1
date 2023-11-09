@@ -13,10 +13,7 @@ namespace Repositories
         {
             _store326659356Context = store326659356Context;
         }
-        //public async Task<IEnumerable<UsersTbl>> GetUsersAsync()
-        //{
-        //    return await _store326659356Context.UsersTbls.ToListAsync();
-        //}
+        
 
         private const string filePath = "C:\\Users\\User\\Desktop\\MyFirstWebApiSite\\Users";
         public async Task<UsersTbl> addUserToDB(UsersTbl user)
@@ -29,43 +26,16 @@ namespace Repositories
 
         public async Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
         {
-            //using (StreamReader reader = System.IO.File.OpenText(filePath))
-            //{
-            //    string? currentUserInFile;
-            //    while ((currentUserInFile =await reader.ReadLineAsync()) != null)
-            //    {
-            //        UsersTbl user = JsonSerializer.Deserialize<UsersTbl>(currentUserInFile);
-            //        if (user.Email == email && user.Password == password)
-            //            return user;
-            //    }
-            //}
-            // return await _store326659356Context.UsersTbls.(???);
-            return null;
-            
+
+            return await _store326659356Context.UsersTbls.Where(p => p.Email == email && p.Password == password)
+                .FirstOrDefaultAsync();
+         
         }
 
-        public async Task<bool> updateUserDetails(int id, UsersTbl userToUpdate)
+        public async Task<bool> updateUserDetails( UsersTbl userToUpdate)
         {
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile =await reader.ReadLineAsync()) != null)
-                {
-
-                    UsersTbl user = JsonSerializer.Deserialize<UsersTbl>(currentUserInFile);
-                    if (user.UserId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-
-            if (textToReplace != string.Empty)
-            {
-                string text =await System.IO.File.ReadAllTextAsync(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                System.IO.File.WriteAllText(filePath, text);
-                return true;
-            }
+            _store326659356Context.UsersTbls.Update(userToUpdate);
+            await _store326659356Context.SaveChangesAsync();
             return false;
         }
 

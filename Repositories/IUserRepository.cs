@@ -6,6 +6,6 @@ namespace Repositories
     {
         Task<UsersTbl> addUserToDB(UsersTbl user);
         Task<UsersTbl> getUserByEmailAndPassword(string email, string password);
-        Task<bool> updateUserDetails(int id, UsersTbl userToUpdate);
+        Task<bool> updateUserDetails(UsersTbl userToUpdate);
     }
 }

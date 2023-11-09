@@ -14,6 +14,6 @@ public partial class UsersTbl
     public string? LastName { get; set; }
 
     public string? Password { get; set; }
-
-    public virtual ICollection<OrdersTbl> OrdersTbls { get; set; } = new List<OrdersTbl>();
+    //[JsonIgnore]
+    public virtual ICollection<OrdersTbl>? OrdersTbls { get; set; } = new List<OrdersTbl>();
 }
