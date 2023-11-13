@@ -16,9 +16,17 @@ namespace Repositories
             _store326659356Context = store326659356Context;
         }
 
-        public async Task<IEnumerable<ProductsTbl>> GetProductsAsync()
+        public async Task<IEnumerable<ProductsTbl>> GetProductsAsync(string? name, int? minPrice, int? maxPrice, int?[] CategoryIds)
         {
-            return await _store326659356Context.ProductsTbls.ToListAsync();
+            var query = _store326659356Context.ProductsTbls.Where(product =>
+            (name == null ? (true) : (product.Description.Contains(name)))
+            && ((minPrice == null) ? (true) : (product.Price >= minPrice))
+            && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
+            && ((CategoryIds.Length == 0) ? (true) : (CategoryIds.Contains(product.CategoryId))))
+            .OrderBy(product => product.Price);
+
+            List<ProductsTbl> products = await query.ToListAsync();
+            return products;
         }
         public async Task<IEnumerable<ProductsTbl>> GetProductsbyCategoryIdAsync(int categoryId)
         {
