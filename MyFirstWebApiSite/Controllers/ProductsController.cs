@@ -18,9 +18,12 @@ namespace MyFirstWebApiSite.Controllers
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<ProductsTbl>> Get()
+        public async Task<ActionResult<IEnumerable<ProductsTbl>>> Get(string? name,int? minPrice, int? maxPrice, [FromQuery] int?[] CategoryIds)
         {
-            return await _productServices.GetProductsAsync();
+            var products= await _productServices.GetProductsAsync(name, minPrice, maxPrice, CategoryIds);
+            if (products.Count() > 0)
+                return Ok(products);
+            return NoContent();
         }
 
         // GET api/<ProductsController>/5
