@@ -1,9 +1,9 @@
 const getAllProducts = async (name, minPrice, maxPrice, categoryIds) => {
     try {
-        let url = `https://localhost:44354/api/Products`;
+        let url = 'api/Products';
         if (name || minPrice || maxPrice || categoryIds) url += `?`;
 
-        if (name) url += `&desc=${name}`;
+        if (name) url += `&name=${name}`;
 
         if (minPrice) url += `&minPrice=${minPrice}`;
 
@@ -13,13 +13,14 @@ const getAllProducts = async (name, minPrice, maxPrice, categoryIds) => {
                 url += `&categoryIds=${categoryIds[i]}`;
             }
         }
-        var res =
-            await fetch('api/products', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+
+
+        var res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
         if (!res.ok) {
             throw new Error("Error in product fetch")
             alert("Error in product fetch")
@@ -43,6 +44,7 @@ const showProducts = async () => {
         cln.querySelector("h1").innerText = products[i].productName;
         cln.querySelector("p.description").innerText = products[i].description;
         cln.querySelector("p.price").innerText = products[i].price + '$';
+        cln.querySelector("button").addEventListener('click', () => { addToShoppingBag(products[i]) });
         document.getElementById("PoductList").appendChild(cln);
     }
 }
@@ -106,4 +108,13 @@ const filterProducts = async () => {
     }
 
 }
+var cart = [];
+var count = 0;
 
+const addToShoppingBag = (product) => {
+    cart.push(product);
+    count++;
+    document.getElementById("ItemsCountText").innerText = count;
+    sessionStorage.setItem("shoppingBag", JSON.stringify(cart));
+    console.log(cart);
+}
