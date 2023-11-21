@@ -13,6 +13,8 @@ function getProducts() {
     for (let i = 0; i < products.length; i++) {
         drowProducts(products[i])
     }
+    document.getElementById("itemCount").innerText = sessionStorage.getItem("itemCount");
+    document.getElementById("totalAmount").innerText = sessionStorage.getItem("totalAmount");
 
 }
 function deleteProduct(productId) {
@@ -23,4 +25,44 @@ function deleteProduct(productId) {
     sessionStorage.setItem("shoppingBag", JSON.stringify(updatedList));
     getProducts();
 
+}
+function placeOrder() {
+    let id = sessionStorage.getItem("userId");
+    if (!id) {
+        alert("you must log in befor complating your order");
+        return;
+    }
+    else {
+        createOrder();
+    }
+}
+async function createOrder() {
+    try {
+        const orderDate = new Date();
+        const orderSum = sessionStorage.getItem("totalAmount");
+        const userId = sessionStorage.getItem("userId");
+        const order = { orderDate, orderSum, userId };
+        const res = await fetch("api/Orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        })
+        if (!res.ok) {
+            console.log(res)
+            /// alert(res)
+            return
+        }
+        const data = await res.json();
+        alert(`your order ${data.orderId} created successfuly`);
+      
+
+    }
+    catch (er) {
+        // alert(er)
+    }
+}
+function Login() {
+    window.location.href = "Home.html";
 }

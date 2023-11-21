@@ -97,7 +97,6 @@ async function Register() {
            /// alert(res)
             return
         }
-            
         sessionStorage.setItem("FirstName", FirstName)
         sessionStorage.setItem("LastName", LastName)
         alert(`Welcome! ${FirstName} `)
@@ -124,6 +123,7 @@ async function Login () {
         
         const data = await res.json();
         console.log(data)
+        sessionStorage.setItem("userId", data.userId)
         sessionStorage.setItem("Password", data.password)
         sessionStorage.setItem("Email", data.Email)
         window.location.href = "userDetails.html?firstName=" + data.firstName;

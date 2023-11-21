@@ -104,16 +104,20 @@ const filterProducts = async () => {
         cln.querySelector("h1").innerText = products[i].productName;
         cln.querySelector("p.description").innerText = products[i].description;
         cln.querySelector("p.price").innerText = products[i].price + '$';
+        cln.querySelector("button").addEventListener('click', () => { addToShoppingBag(products[i]) });
         document.getElementById("PoductList").appendChild(cln);
     }
 
 }
 var cart = [];
 var count = 0;
-
+var sum = 0;
 const addToShoppingBag = (product) => {
     cart.push(product);
     count++;
+    sum += product.price;
+    sessionStorage.setItem("totalAmount", sum);
+    sessionStorage.setItem("itemCount", count);
     document.getElementById("ItemsCountText").innerText = count;
     sessionStorage.setItem("shoppingBag", JSON.stringify(cart));
     console.log(cart);

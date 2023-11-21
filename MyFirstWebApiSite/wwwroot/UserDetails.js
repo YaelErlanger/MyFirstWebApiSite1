@@ -1,4 +1,6 @@
-
+const startOrder = () => {
+    window.location.href="products.html"
+}
 
 const showUpdateTags = () => {
     const updateTags = document.getElementById("update")
