@@ -41,7 +41,8 @@ async function createOrder() {
         const orderDate = new Date();
         const orderSum = sessionStorage.getItem("totalAmount");
         const userId = sessionStorage.getItem("userId");
-        const order = { orderDate, orderSum, userId };
+        const orderItems = sessionStorage.getItem("shoppingBag")
+        const order = { orderDate, orderSum, userId,orderItems };
         const res = await fetch("api/Orders", {
             method: "POST",
             headers: {

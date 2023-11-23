@@ -5,6 +5,8 @@ using System.Security.Principal;
 using System.Text.Json;
 using Services;
 using Entities;
+using DTO;
+using AutoMapper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,11 +17,13 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserServices _userServices;
+        private readonly IUserServices _userServices;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserServices userServices)
+        public UsersController(IUserServices userServices, IMapper mapper)
         {
             _userServices = userServices;
+            _mapper = mapper;
         }
 
         // GET: api/<UsersController>
@@ -48,14 +52,15 @@ namespace MyFirstWebApiSite.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UsersTbl user)
+        public async Task<ActionResult> Post([FromBody] UserDTO user)
         {
             try
             {
-                user=await _userServices.addUserToDB(user);
-                if (user!=null)
-                    return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
-                return BadRequest(user);
+                UsersTbl userTbl = _mapper.Map<UserDTO,UsersTbl>(user);
+                userTbl = await _userServices.addUserToDB(userTbl);
+                if (userTbl != null)
+                    return CreatedAtAction(nameof(Get), new { id = userTbl.UserId }, userTbl);
+                return BadRequest(userTbl);
             }
             catch(Exception ex)
             {

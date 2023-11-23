@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Entities;
 
-namespace Entities;
+namespace Entities.Models;
 
 public partial class Store326659356Context : DbContext
 {
@@ -50,6 +49,12 @@ public partial class Store326659356Context : DbContext
 
             entity.ToTable("OrderItem_tbl");
 
+            entity.HasIndex(e => e.OrderId, "IX_OrderItem_tbl_OrderId");
+
+            entity.HasIndex(e => e.ProductId, "IX_OrderItem_tbl_ProductId");
+
+            entity.Property(e => e.Quantity).HasDefaultValueSql("((1))");
+
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItemTbls)
                 .HasForeignKey(d => d.OrderId)
                 .HasConstraintName("fk_OrderItemTbl_OrderId");
@@ -65,6 +70,8 @@ public partial class Store326659356Context : DbContext
 
             entity.ToTable("Orders_tbl");
 
+            entity.HasIndex(e => e.UserId, "IX_Orders_tbl_UserId");
+
             entity.Property(e => e.OrderDate).HasColumnType("date");
 
             entity.HasOne(d => d.User).WithMany(p => p.OrdersTbls)
@@ -77,6 +84,8 @@ public partial class Store326659356Context : DbContext
             entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6CDA774E800");
 
             entity.ToTable("Products_tbl");
+
+            entity.HasIndex(e => e.CategoryId, "IX_Products_tbl_CategoryId");
 
             entity.Property(e => e.Description)
                 .HasMaxLength(40)

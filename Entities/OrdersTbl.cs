@@ -13,7 +13,7 @@ public partial class OrdersTbl
 
     public int? UserId { get; set; }
 
-    public virtual ICollection<OrderItemTbl>? OrderItemTbls { get; set; } = new List<OrderItemTbl>();
+    public virtual ICollection<OrderItemTbl> OrderItemTbls { get; set; } = new List<OrderItemTbl>();
 
     public virtual UsersTbl? User { get; set; }
 }
