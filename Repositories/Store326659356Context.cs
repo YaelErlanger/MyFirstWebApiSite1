@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities.Models;
+namespace Repositories;
 
 public partial class Store326659356Context : DbContext
 {
