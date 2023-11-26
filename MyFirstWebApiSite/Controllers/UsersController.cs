@@ -42,10 +42,10 @@ namespace MyFirstWebApiSite.Controllers
         }
 
         // GET api/<UsersController>/
-        [HttpPost]
-        public async Task<ActionResult> Get([FromBody] string email, [FromBody] string password)
+        [HttpPost("Login")]
+        public async Task<ActionResult> Get([FromBody] UserLogin userlogin)
         {
-            UsersTbl user =await _userServices.getUserByEmailAndPassword(email, password);
+            UsersTbl user =await _userServices.getUserByEmailAndPassword(userlogin.Email, userlogin.Password);
             if (user != null)
                 return Ok(user);
              return NoContent();
