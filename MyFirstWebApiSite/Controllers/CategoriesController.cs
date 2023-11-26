@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -10,42 +12,24 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        ICategoryServices _categoryServices;
-
-        public CategoriesController(ICategoryServices categoryServices)
+        private readonly ICategoryServices _categoryServices;
+        private readonly IMapper _mapper;
+        public CategoriesController(ICategoryServices categoryServices, IMapper mapper)
         {
             _categoryServices = categoryServices;
+            _mapper = mapper;   
         }
         // GET: api/<CategoriesController>
         [HttpGet]
-        public async Task<IEnumerable<CaegoriesTbl>> Get()
+        public async Task<IEnumerable<CategoryDTO>> Get()
         {
-            return await _categoryServices.GetCategoriesAsync();
+            IEnumerable<CaegoriesTbl> categories = await _categoryServices.GetCategoriesAsync();
+            IEnumerable<CategoryDTO> categoryDTOs= _mapper.Map<IEnumerable<CaegoriesTbl>, IEnumerable<CategoryDTO>>(categories);
+            return categoryDTOs;
         }
 
-        // GET api/<CategoriesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+       
 
-        // POST api/<CategoriesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoriesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CategoriesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      
     }
 }

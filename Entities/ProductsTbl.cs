@@ -17,7 +17,7 @@ public partial class ProductsTbl
 
     public string? Image { get; set; }
 
-    public virtual CaegoriesTbl? Category { get; set; }
+    public virtual CaegoriesTbl Category { get; set; }
 
     public virtual ICollection<OrderItemTbl> OrderItemTbls { get; set; } = new List<OrderItemTbl>();
 }

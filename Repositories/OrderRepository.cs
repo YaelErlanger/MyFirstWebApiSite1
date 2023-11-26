@@ -25,7 +25,10 @@ namespace Repositories
         }
         public async Task<IEnumerable<OrdersTbl>> GetOrdersAsync()
         {
-            return await _store326659356Context.OrdersTbls.ToListAsync();
+            return await _store326659356Context.OrdersTbls
+                .Include(order => order.User)
+                //.Include(order => order.OrderItemTbls)   
+                .ToListAsync();
         }
 
     }

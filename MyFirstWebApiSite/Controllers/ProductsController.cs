@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -10,19 +12,23 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        IProductServices _productServices;
+        private readonly IProductServices _productServices;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductServices productServices)
+        public ProductsController(IProductServices productServices, IMapper mapper)
         {
             _productServices = productServices;
+            _mapper = mapper;
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductsTbl>>> Get(string? name,int? minPrice, int? maxPrice, [FromQuery] int?[] CategoryIds)
+
+        public async Task<ActionResult<IEnumerable<ProductAndCategoryDTO>>> Get(string? name,int? minPrice, int? maxPrice, [FromQuery] int?[] CategoryIds)
         {
-            var products= await _productServices.GetProductsAsync(name, minPrice, maxPrice, CategoryIds);
-            if (products.Count() > 0)
-                return Ok(products);
+           IEnumerable<ProductsTbl> products= await _productServices.GetProductsAsync(name, minPrice, maxPrice, CategoryIds);
+            IEnumerable<ProductAndCategoryDTO> productsDTO = _mapper.Map<IEnumerable<ProductsTbl>, IEnumerable<ProductAndCategoryDTO>>(products);
+            if (productsDTO.Count() > 0)
+                return Ok(productsDTO);
             return NoContent();
         }
 
@@ -33,22 +39,7 @@ namespace MyFirstWebApiSite.Controllers
             return await _productServices.GetProductsByCategoryIdAsync(CategoryId);
         }
 
-        // POST api/<ProductsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ProductsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProductsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
+       
     }
 }

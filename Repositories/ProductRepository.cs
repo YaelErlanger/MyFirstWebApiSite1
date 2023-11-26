@@ -24,8 +24,8 @@ namespace Repositories
             && ((minPrice == null) ? (true) : (product.Price >= minPrice))
             && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
             && ((CategoryIds.Length == 0) ? (true) : (CategoryIds.Contains(product.CategoryId))))
-            .OrderBy(product => product.Price);
-
+            .OrderBy(product => product.Price)
+            .Include(product => product.Category);
             List<ProductsTbl> products = await query.ToListAsync();
             return products;
         }

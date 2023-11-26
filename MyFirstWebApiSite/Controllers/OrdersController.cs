@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -10,25 +12,23 @@ namespace MyFirstWebApiSite.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        IOrderServices _orderServices;
-
-        public OrdersController(IOrderServices orderServices)
+        private readonly IOrderServices _orderServices;
+        private readonly IMapper _mapper;
+        public OrdersController(IOrderServices orderServices, IMapper mapper)
         {
             _orderServices = orderServices;
+            _mapper = mapper;   
         }
         // GET: api/<OrdersController>
         [HttpGet]
-        public async Task<IEnumerable<OrdersTbl>> Get()
+        public async Task<IEnumerable<OrderDTO>> Get()
         {
-            return await _orderServices.GetOrdersAsync();
+            IEnumerable<OrdersTbl> orders = await _orderServices.GetOrdersAsync();
+            IEnumerable<OrderDTO> ordersDTO = _mapper.Map<IEnumerable<OrdersTbl>,IEnumerable<OrderDTO>>(orders);
+            return ordersDTO;
         }
 
-        // GET api/<OrdersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+       
 
         // POST api/<OrdersController>
         [HttpPost]
@@ -47,16 +47,6 @@ namespace MyFirstWebApiSite.Controllers
             }
         }
 
-        // PUT api/<OrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<OrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

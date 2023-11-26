@@ -7,6 +7,7 @@ using Services;
 using Entities;
 using DTO;
 using AutoMapper;
+using System.Runtime.InteropServices.JavaScript;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,10 +42,10 @@ namespace MyFirstWebApiSite.Controllers
         }
 
         // GET api/<UsersController>/
-        [HttpGet]
-        public async Task<ActionResult> Get([FromQuery] string email, [FromQuery] string password)
+        [HttpPost]
+        public async Task<ActionResult> Get([FromBody] string email, [FromBody] string password)
         {
-            UsersTbl user =await  _userServices.getUserByEmailAndPassword(email, password);
+            UsersTbl user =await _userServices.getUserByEmailAndPassword(email, password);
             if (user != null)
                 return Ok(user);
              return NoContent();
@@ -81,12 +82,6 @@ namespace MyFirstWebApiSite.Controllers
           
         }
 
-        // DELETE api/<UsersController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
-
-        
+       
     }
 }

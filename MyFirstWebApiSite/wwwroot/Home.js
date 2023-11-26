@@ -112,7 +112,19 @@ async function Login () {
     const Email = document.getElementById("logName").value
         const Password = document.getElementById("logPassword").value
     try {
-        const res = await fetch(`api/Users/?email=${Email}&password=${Password}`);
+        
+
+        const data = {
+            email: Email,
+            password: Password
+        }
+        const res = await fetch("api/Users/Get", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: [JSON.stringify(Email), JSON.stringify(Password) ]
+        })
         if (res.status == 204) {
             alert("user not found")
             return;
