@@ -3,6 +3,7 @@ using Repositories;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,10 @@ builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<Store326659356Context>(option => option.UseSqlServer("Server=DESKTOP-LILKT1O;Database=Store_326659356;Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Host.UseNLog();
+builder.Services.AddDbContext<Store326659356Context>(option => option.UseSqlServer
+(builder.Configuration.GetConnectionString("School")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

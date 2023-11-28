@@ -8,8 +8,8 @@ namespace DTO
 {
     public class ProductAndCategoryDTO
     {
-       
 
+        public int ProductId { get; set; }
         public string ProductName { get; set; } = null!;
 
         public string? Description { get; set; }

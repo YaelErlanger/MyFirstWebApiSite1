@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using Entities;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Configuration;
 namespace Repositories;
 
 public partial class Store326659356Context : DbContext
 {
+    public IConfiguration _configuration { get; }
     public Store326659356Context()
-    {
+    {  
     }
 
-    public Store326659356Context(DbContextOptions<Store326659356Context> options)
+    public Store326659356Context(DbContextOptions<Store326659356Context> options, IConfiguration configuration)
         : base(options)
     {
+        _configuration = configuration;
     }
 
     public virtual DbSet<CaegoriesTbl> CaegoriesTbls { get; set; }
@@ -28,7 +30,7 @@ public partial class Store326659356Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-LILKT1O;Database=Store_326659356;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("School"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

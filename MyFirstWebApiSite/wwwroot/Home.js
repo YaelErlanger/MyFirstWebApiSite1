@@ -135,7 +135,6 @@ async function Login () {
         const data = await res.json();
         console.log(data)
         sessionStorage.setItem("userId", data.userId)
-        sessionStorage.setItem("Password", data.password)
         sessionStorage.setItem("Email", data.Email)
         window.location.href = "userDetails.html?firstName=" + data.firstName;
     }

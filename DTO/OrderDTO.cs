@@ -18,7 +18,7 @@ namespace DTO
 
         public int? UserId { get; set; }
 
-        public  ICollection<OrderItemTbl> OrderItemTbls { get; set; } = new List<OrderItemTbl>();
+        public virtual ICollection<OrderItemDTO> OrderItemTbls { get; set; } = new List<OrderItemDTO>();
        
 
 
