@@ -3,8 +3,8 @@ function show() {
     p.setAttribute('type', 'text');
 }
 
-function hide() {
-//    var p = document.getElementById('pwd');
+//function hide() {
+//    var p = document.getElementById('logPassword');
 //    p.setAttribute('type', 'password');
 //}
 
@@ -18,7 +18,7 @@ function hide() {
 //        pwShown = 0;
 //        hide();
 //    }
-}//, false);
+//}, false);
 
 
 const goToRegister = () => {
@@ -97,8 +97,10 @@ async function Register() {
            /// alert(res)
             return
         }
+        const data = await res.json();
         sessionStorage.setItem("FirstName", FirstName)
         sessionStorage.setItem("LastName", LastName)
+        sessionStorage.setItem("userId",data.userId)
         alert(`Welcome! ${FirstName} `)
         window.location.href = "UserDetails.html";
 

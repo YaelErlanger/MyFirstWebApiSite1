@@ -21,9 +21,6 @@ namespace Services
         {
             return await _productRepository.GetProductsAsync (name,minPrice,maxPrice, CategoryIds);
         }
-        public async Task<IEnumerable<ProductsTbl>> GetProductsByCategoryIdAsync(int categoryId)
-        {
-            return await _productRepository.GetProductsbyCategoryIdAsync(categoryId);
-        }
+       
     }
 }

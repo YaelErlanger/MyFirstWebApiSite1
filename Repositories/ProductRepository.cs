@@ -11,8 +11,8 @@ namespace Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly Store326659356Context _store326659356Context;
-        public ProductRepository(Store326659356Context store326659356Context)
+        private readonly MyStore326659356Context _store326659356Context;
+        public ProductRepository(MyStore326659356Context store326659356Context)
         {
             _store326659356Context = store326659356Context;
         }
@@ -29,10 +29,7 @@ namespace Repositories
             List<ProductsTbl> products = await query.ToListAsync();
             return products;
         }
-        public async Task<IEnumerable<ProductsTbl>> GetProductsbyCategoryIdAsync(int categoryId)
-        {
-            return await _store326659356Context.ProductsTbls.Where(p => p.CategoryId == categoryId).ToListAsync();
-        }
+       
 
     }
 }

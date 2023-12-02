@@ -20,11 +20,13 @@ namespace MyFirstWebApiSite.Controllers
     {
         private readonly IUserServices _userServices;
         private readonly IMapper _mapper;
+        private readonly ILogger<ProductsController> _logger;
 
-        public UsersController(IUserServices userServices, IMapper mapper)
+        public UsersController(IUserServices userServices, IMapper mapper, ILogger<ProductsController> logger)
         {
             _userServices = userServices;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/<UsersController>
@@ -47,7 +49,11 @@ namespace MyFirstWebApiSite.Controllers
         {
             UsersTbl user =await _userServices.getUserByEmailAndPassword(userlogin.Email, userlogin.Password);
             if (user != null)
+            {
+                _logger.LogInformation("user loged in: ",user);
                 return Ok(user);
+            }
+               
              return NoContent();
         }
 
@@ -65,20 +71,22 @@ namespace MyFirstWebApiSite.Controllers
             }
             catch(Exception ex)
             {
+                _logger.LogError("error occurd in login");
                 return BadRequest(ex.Message);
             }
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id,[FromBody] UsersTbl userToUpdate)
+        public async Task<ActionResult> Put(int id,[FromBody] UserDTO userToUpdate)
         {
             userToUpdate.UserId = id;
-            int result =await _userServices.updateUserDetails(id,userToUpdate);
+            UsersTbl userTbl = _mapper.Map<UserDTO, UsersTbl>(userToUpdate);
+            int result =await _userServices.updateUserDetails(id, userTbl);
             if(result==0)
                 return Ok(User);
             else
-                return BadRequest("password is not strong enough");
+                return BadRequest("faild to update. maybe the password is not strong enough");
           
         }
 

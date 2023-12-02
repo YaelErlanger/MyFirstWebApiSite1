@@ -9,8 +9,8 @@ namespace Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly Store326659356Context _store326659356Context;
-        public UserRepository(Store326659356Context store326659356Context)
+        private readonly MyStore326659356Context _store326659356Context;
+        public UserRepository(MyStore326659356Context store326659356Context)
         {
             _store326659356Context = store326659356Context;
         }

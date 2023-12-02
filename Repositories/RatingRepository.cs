@@ -1,6 +1,4 @@
 ﻿using Entities;
-using Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class RatingRepository : IRatingRepository
     {
         private readonly MyStore326659356Context _store326659356Context;
-        public CategoryRepository(MyStore326659356Context store326659356Context)
+        public RatingRepository(MyStore326659356Context store326659356Context)
         {
             _store326659356Context = store326659356Context;
         }
-
-        public async Task<IEnumerable<CaegoriesTbl>> GetCategoriesAsync()
+        public async Task<Rating> addRatingToDB(Rating rating)
         {
-            return await _store326659356Context.CaegoriesTbls.ToListAsync();
+            // await _store326659356Context.Rating
+            await _store326659356Context.SaveChangesAsync();
+
+
+            return rating;
         }
     }
 }

@@ -15,20 +15,20 @@ namespace MyFirstWebApiSite.Controllers
     {
         private readonly IProductServices _productServices;
         private readonly IMapper _mapper;
-        private readonly ILogger<ProductsController> _logger;
+       
 
-        public ProductsController(IProductServices productServices, IMapper mapper, ILogger<ProductsController> logger)
+        public ProductsController(IProductServices productServices, IMapper mapper)
         {
             _productServices = productServices;
             _mapper = mapper;
-            _logger = logger;
+           
         }
         // GET: api/<ProductsController>
         [HttpGet]
 
         public async Task<ActionResult<IEnumerable<ProductAndCategoryDTO>>> Get(string? name,int? minPrice, int? maxPrice, [FromQuery] int?[] CategoryIds)
         {
-            _logger.LogInformation("this is the productDTO ");
+           
             IEnumerable<ProductsTbl> products= await _productServices.GetProductsAsync(name, minPrice, maxPrice, CategoryIds);
             IEnumerable<ProductAndCategoryDTO> productsDTO = _mapper.Map<IEnumerable<ProductsTbl>, IEnumerable<ProductAndCategoryDTO>>(products);
             if (productsDTO.Count() > 0)
@@ -37,12 +37,7 @@ namespace MyFirstWebApiSite.Controllers
             return NoContent();
         }
 
-        // GET api/<ProductsController>/5
-        [HttpGet("{CategoryId}")]
-        public async Task<IEnumerable<ProductsTbl>> Get(int CategoryId)
-        {
-            return await _productServices.GetProductsByCategoryIdAsync(CategoryId);
-        }
+      
 
        
        
