@@ -1,6 +1,6 @@
-function show() {
-    var p = document.getElementById('pwd');
-    p.setAttribute('type', 'text');
+function showRegister() {
+    const registerTags = document.getElementById("register")
+    registerTags.style.visibility = "initial"
 }
 
 //function hide() {

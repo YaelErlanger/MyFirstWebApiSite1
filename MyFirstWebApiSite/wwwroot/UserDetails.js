@@ -8,7 +8,9 @@ const showUpdateTags = () => {
 }
 
 async function updateUserDetails() {
+
     try {
+
         const Email = document.getElementById("Email").value;
         const Password = document.getElementById("updatePassword").value;
         const FirstName = document.getElementById("updateFName").value;
@@ -26,7 +28,8 @@ async function updateUserDetails() {
         if (!res.ok)
             throw new Error("error in updating your details ")
         const data = await res.json();
-
+        const update = document.getElementById("update");
+        update.style.visibility = "hidden";
         alert(`user ${UserId} Updated`)
     }
     catch (er) {

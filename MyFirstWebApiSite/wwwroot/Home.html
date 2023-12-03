@@ -1,92 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="Home.js"></script>
-   <!-- <link href="login.css" rel="stylesheet" />-->
+
+    <link href="login.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
-    <div id="body">
-        <label>Email address</label>
-        <input id="logName" /> <br />
-        <label>Password</label>
-        <input id="logPassword"type="password" /> <br />
-        <button onclick="Login()">Login</button><br />
-         <div  id="register" >
-         <label>Email address</label>
-         <input id="regName" /> <br />
-         <label>Password</label>
-         <input id="regPassword" type="password" /> <progress id="progress" value="0"></progress>
-             <button onclick="checkPwdStrength()">check password strength</button><br/>
-         <label>First Name</label>
-         <input id="regFName" /> <br />
-         <label>Last Name</label>
-         <input id="regLName" /> <br />
-             <button onclick="Register()">Register</button>
-         </div>
-    </div>
-    <!--<div class="overlay">-->
-        <!-- LOGN IN FORM by Omar Dsoky -->
-        <!--<form>-->
-            <!--   con = Container  for items in the form-->
-            <!--<div class="con">-->
-                <!--     Start  header Content  -->
-                <!--<header class="head-form">
-                    <h2>Log In</h2>-->
-                    <!--     A welcome message or an explanation of the login form -->
-                    <!--<p>login here using your username and password</p>
-                </header>-->
-                <!--     End  header Content  -->
-                <!--<br>
-                <div class="field-set">-->
+   
+        <div id="body">
 
-                    <!--   user name -->
-                    <!--<span class="input-item">
-                        <i class="fa fa-user-circle"></i>
-                    </span>-->
-                    <!--   user name Input-->
-                    <!--<input class="form-input" id="logName" type="text" placeholder="@UserName" >
-
-                    <br>-->
-
-                    <!--   Password -->
-
-                    <!--<span class="input-item">
-                        <i class="fa fa-key"></i>
-                    </span>-->
-                    <!--   Password Input-->
-                    <!--<input class="form-input" type="password" placeholder="Password" id="logPassword" name="password" >-->
-
-                    <!--      Show/hide password  -->
-                    <!--<span>
-                        <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
-                    </span>
-
-
-                    <br>-->
-                    <!--        buttons -->
-                    <!--      button LogIn -->
-                    <!--<button  onclick="Login()" class="log-in"> Log In </button>
-                </div>-->
-
-                <!--   other buttons -->
-                <!--<div class="other">-->
-                   
-                    <!--     Sign Up button -->
-                    <!--<button class="btn submits sign-up">
-                        Sign Up-->
-                        <!--         Sign Up font icon -->
-                        <!--<i class="fa fa-user-plus" aria-hidden="true"></i>
-                    </button>-->
-                    <!--      End Other the Division -->
-                <!--</div>-->
-
-                <!--   End Conrainer  -->
-            <!--</div>-->
-
-            <!-- End Form -->
-        <!--</form>
-    </div>-->
+            <br />
+            <br />
+            <h1>Welcome to our musical instrument store! 🎼</h1>
+            <label>Email address</label>
+            <input id="logName" /> <br />
+            <label>Password</label>
+            <input id="logPassword" type="password" /> <br />
+            <button onclick="Login()">Login</button><br />
+            <button onclick="showRegister()">New User</button>
+            <div style="visibility:hidden" id="register">
+                <label>Email address</label>
+                <input id="regName" /> <br />
+                <label>Password</label>
+                <input id="regPassword" type="password" /> <progress id="progress" value="0"></progress>
+                <button onclick="checkPwdStrength()">check password strength</button><br />
+                <label>First Name</label>
+                <input id="regFName" /> <br />
+                <label>Last Name</label>
+                <input id="regLName" /> <br />
+                <button onclick="Register()">Register</button>
+            </div>
+        </div>
 </body>
+<script src="Home.js"></script>
 </html>
