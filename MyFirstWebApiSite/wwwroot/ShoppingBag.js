@@ -9,10 +9,16 @@ function drowProducts(product) {
     document.getElementById("items").appendChild(cln);
 }
 function getProducts() {
+    let sum = 0;
+    let count = 0;
     let products = JSON.parse(sessionStorage.getItem("shoppingBag"))
     for (let i = 0; i < products.length; i++) {
+        count++;
+        sum += products[i].price;
         drowProducts(products[i])
     }
+    sessionStorage.setItem("totalAmount", sum);
+    sessionStorage.setItem("itemCount", count);
     document.getElementById("itemCount").innerText = sessionStorage.getItem("itemCount");
     document.getElementById("totalAmount").innerText = sessionStorage.getItem("totalAmount");
 

@@ -1,5 +1,6 @@
 ﻿using DTO;
 using Entities;
+using Microsoft.Extensions.Logging;
 using Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,34 +13,31 @@ namespace Services
     public class OrderServices : IOrderServices
     {
         IOrderRepository _orderRepository;
-        IProductRepository _productRepository; 
+        private readonly ILogger<OrderServices> _logger;
 
-        public OrderServices(IOrderRepository orderRepository,IProductRepository productRepository)
+
+        public OrderServices(IOrderRepository orderRepository, ILogger<OrderServices> logger)
         {
             _orderRepository = orderRepository;
-            _productRepository = productRepository; 
+            _logger = logger;
+           
         }
 
         public async Task<OrdersTbl> addOrderToDB(OrdersTbl order)
         {
-            //double sum = order.OrderSum;
-            //var correctSum = 0;
-            //IEnumerable<OrderItemTbl> items = order.OrderItemTbls;
-            //IEnumerable<ProductsTbl> products = await _productRepository.GetProductsAsync();
-
-            //foreach (ProductsTbl product in products)
-            //{
-            //    foreach (OrderItemTbl item in items)
-            //    {
-            //        if (item.ProductId == product.ProductId)
-            //            correctSum += product.Price;
-            //    }
-            //}
-            //if(correctSum != sum)
-            //{
-            //    //send to logger
-            //}
-            //order.OrderSum = correctSum;
+             
+            double correctSum = 0;
+            IEnumerable<OrderItemTbl> items = order.OrderItemTbls;
+           foreach(OrderItemTbl item in items)
+            {
+                correctSum +=await _orderRepository.getprice(item);
+            }
+            
+            if(correctSum != order.OrderSum)
+            {
+                _logger.LogInformation("{1} tried to still!", order.UserId);
+            }
+            order.OrderSum = (int?)correctSum;
             return await _orderRepository.addOrderToDB(order);
         }
         public async Task<IEnumerable<OrdersTbl>> GetOrdersAsync()

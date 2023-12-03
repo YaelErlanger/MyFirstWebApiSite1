@@ -22,7 +22,8 @@ namespace MyFirstWebApiSite.Middlewares
             }
             catch (Exception e)
             {
-                _logger.LogError($"Logged From My Middleware {e.Message}  {e.StackTrace}");
+                
+                _logger.LogError($"Logged From My Middleware {e.Message} ");
                 httpContext.Response.StatusCode = 500;
                 await httpContext.Response.WriteAsync("Internal Error In Server");
             }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
 using NLog.Web;
-
+using MyFirstWebApiSite.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +18,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IMyStore326659356Context, MyStore326659356Context>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
@@ -39,5 +40,7 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseRatingMiddleware();
+app.UseErrorHandlingMiddleware();
 
 app.Run();

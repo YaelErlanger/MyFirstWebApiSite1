@@ -7,5 +7,6 @@ namespace Repositories
     {
         Task<OrdersTbl> addOrderToDB(OrdersTbl order);
         Task<IEnumerable<OrdersTbl>> GetOrdersAsync();
+        Task<double> getprice(OrderItemTbl order);
     }
 }

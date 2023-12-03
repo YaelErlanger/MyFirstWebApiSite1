@@ -11,9 +11,9 @@ public partial class OrderItemTbl
 
     public int OrderId { get; set; }
 
-    public int? Quantity { get; set; }
+    public int Quantity { get; set; }
 
-    public virtual OrdersTbl Order { get; set; }
+    public virtual OrdersTbl Order { get; set; } = null!;
 
-    public virtual ProductsTbl Product { get; set; }
+    public virtual ProductsTbl Product { get; set; } = null!;
 }

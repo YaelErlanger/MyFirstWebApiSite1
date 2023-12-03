@@ -14,9 +14,9 @@ async function updateUserDetails() {
         const FirstName = document.getElementById("updateFName").value
         const LastName = document.getElementById("updateLName").value
         const user = { Email, Password, FirstName, LastName }
-        let id = sessionStorage.getItem("userId");
+        let UserId = sessionStorage.getItem("userId");
 
-        const res = await fetch(`api/Users/${id}`, {
+        const res = await fetch(`api/Users/${UserId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

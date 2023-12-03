@@ -115,8 +115,8 @@ var sum = 0;
 const addToShoppingBag = (product) => {
     cart.push(product);
     count++;
-    sum += product.price;
-    sessionStorage.setItem("totalAmount", sum);
+    //sum += product.price;
+    //sessionStorage.setItem("totalAmount", sum);
     sessionStorage.setItem("itemCount", count);
     document.getElementById("ItemsCountText").innerText = count;
     sessionStorage.setItem("shoppingBag", JSON.stringify(cart));

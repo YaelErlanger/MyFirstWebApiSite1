@@ -3,7 +3,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-public partial class MyStore326659356Context : DbContext
+public partial class MyStore326659356Context : DbContext, IMyStore326659356Context
 {
     public IConfiguration _configuration { get; }
     public MyStore326659356Context()
@@ -26,9 +26,11 @@ public partial class MyStore326659356Context : DbContext
 
     public virtual DbSet<UsersTbl> UsersTbls { get; set; }
 
+    public virtual DbSet<Rating> Ratings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Home"));
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("School"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,8 +42,8 @@ public partial class MyStore326659356Context : DbContext
 
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(20)
-                .IsUnicode(false)
-                .IsFixedLength();
+                .IsFixedLength()
+                .HasColumnName("CategoryName");
         });
 
         modelBuilder.Entity<OrderItemTbl>(entity =>
@@ -50,9 +52,9 @@ public partial class MyStore326659356Context : DbContext
 
             entity.ToTable("OrderItem_tbl");
 
-            entity.HasIndex(e => e.OrderId, "IX_OrderItem_tbl_OrderId");
+            //  entity.HasIndex(e => e.OrderId, "IX_OrderItem_tbl_OrderId");
 
-            entity.HasIndex(e => e.ProductId, "IX_OrderItem_tbl_ProductId");
+            // entity.HasIndex(e => e.ProductId, "IX_OrderItem_tbl_ProductId");
 
             entity.Property(e => e.Quantity).HasDefaultValueSql("((1))");
 
@@ -73,9 +75,9 @@ public partial class MyStore326659356Context : DbContext
 
             entity.ToTable("Orders_tbl");
 
-            entity.HasIndex(e => e.UserId, "IX_Orders_tbl_UserId");
+            //entity.HasIndex(e => e.UserId, "IX_Orders_tbl_UserId");
 
-            entity.Property(e => e.OrderDate).HasColumnType("date");
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.User).WithMany(p => p.OrdersTbls)
                 .HasForeignKey(d => d.UserId)
@@ -89,20 +91,17 @@ public partial class MyStore326659356Context : DbContext
 
             entity.ToTable("Products_tbl");
 
-            entity.HasIndex(e => e.CategoryId, "IX_Products_tbl_CategoryId");
+            // entity.HasIndex(e => e.CategoryId, "IX_Products_tbl_CategoryId");
 
             entity.Property(e => e.Description)
                 .HasMaxLength(40)
-                .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.Image)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("image");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .IsFixedLength();
 
             entity.HasOne(d => d.Category).WithMany(p => p.ProductsTbls)
@@ -119,22 +118,50 @@ public partial class MyStore326659356Context : DbContext
 
             entity.Property(e => e.Email)
                 .HasMaxLength(30)
-                .IsUnicode(false)
+
                 .IsFixedLength();
             entity.Property(e => e.FirstName)
                 .HasMaxLength(30)
-                .IsUnicode(false)
+
                 .IsFixedLength();
             entity.Property(e => e.LastName)
                 .HasMaxLength(30)
-                .IsUnicode(false)
+
                 .IsFixedLength();
             entity.Property(e => e.Password)
                 .HasMaxLength(30)
-                .IsUnicode(false)
+
                 .IsFixedLength();
         });
+        modelBuilder.Entity<Rating>(entity =>
+        {
+            entity.ToTable("RATING");
 
+            entity.Property(e => e.RatingId).HasColumnName("RATING_ID");
+
+            entity.Property(e => e.Host)
+                .HasColumnName("HOST")
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Method)
+                .HasColumnName("METHOD")
+                .HasMaxLength(10)
+                .IsFixedLength();
+
+            entity.Property(e => e.Path)
+                .HasColumnName("PATH")
+                .HasMaxLength(50);
+
+            entity.Property(e => e.RecordDate)
+             .HasColumnName("Record_Date")
+             .HasColumnType("datetime");
+
+            entity.Property(e => e.Referer)
+                .HasColumnName("REFERER")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.UserAgent).HasColumnName("USER_AGENT");
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

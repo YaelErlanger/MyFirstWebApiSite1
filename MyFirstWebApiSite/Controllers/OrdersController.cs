@@ -34,18 +34,14 @@ namespace MyFirstWebApiSite.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] OrderDTO orderdto)
         {
-            try
-            {
+            
                 OrdersTbl orderTbl = _mapper.Map<OrderDTO, OrdersTbl>(orderdto);
                 OrdersTbl order = await _orderServices.addOrderToDB(orderTbl);
                 if (order != null)
                     return CreatedAtAction(nameof(Get), new { id = order.OrderId }, orderdto);
                 return BadRequest(order);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+   
+          
         }
 
        

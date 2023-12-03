@@ -29,12 +29,7 @@ namespace MyFirstWebApiSite.Controllers
             _logger = logger;
         }
 
-        // GET: api/<UsersController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+
 
         [HttpPost("checkYourPass")]
         public   ActionResult checkYourPass([FromBody] string password)
@@ -61,32 +56,27 @@ namespace MyFirstWebApiSite.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserDTO user)
         {
-            try
-            {
+   
                 UsersTbl userTbl = _mapper.Map<UserDTO,UsersTbl>(user);
                 userTbl = await _userServices.addUserToDB(userTbl);
                 if (userTbl != null)
                     return CreatedAtAction(nameof(Get), new { id = userTbl.UserId }, userTbl);
                 return BadRequest(userTbl);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError("error occurd in login");
-                return BadRequest(ex.Message);
-            }
+  
+   
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id,[FromBody] UserDTO userToUpdate)
+        [HttpPut("{UserId}")]
+        public async Task<ActionResult> Put(int UserId, [FromBody] UserDTO userToUpdate)
         {
-            userToUpdate.UserId = id;
+            userToUpdate.UserId = UserId;
             UsersTbl userTbl = _mapper.Map<UserDTO, UsersTbl>(userToUpdate);
-            int result =await _userServices.updateUserDetails(id, userTbl);
+            int result =await _userServices.updateUserDetails(UserId, userTbl);
             if(result==0)
                 return Ok(User);
             else
-                return BadRequest("faild to update. maybe the password is not strong enough");
+                return BadRequest("faild to update. the password is not strong enough");
           
         }
 

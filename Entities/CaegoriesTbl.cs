@@ -7,7 +7,7 @@ public partial class CaegoriesTbl
 {
     public int CategoryId { get; set; }
 
-    public string CategoryName { get; set; } 
+    public string? CategoryName { get; set; } 
 
     public virtual ICollection<ProductsTbl> ProductsTbls { get; set; } = new List<ProductsTbl>();
 }

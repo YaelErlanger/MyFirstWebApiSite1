@@ -37,6 +37,7 @@ namespace Repositories
         {
             _store326659356Context.UsersTbls.Update(userToUpdate);
             await _store326659356Context.SaveChangesAsync();
+            return;
            
         }
 
