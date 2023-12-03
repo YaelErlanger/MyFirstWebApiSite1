@@ -21,26 +21,27 @@ namespace Repositories
         }
         public async Task<Rating> addRatingToDB(Rating rating) 
         {
-            await _store326659356Context.Ratings.AddAsync(rating);
-            await _store326659356Context.SaveChangesAsync();
-            
-            //    string query = "INSERT INTO RATING(HOST, METHOD, PATH, REFERER, USER_AGENT, Record_Date)" +
-            //        "VALUES (@HOST, @METHOD, @PATH, @REFERER, @USER_AGENT, @Record_Date)";
 
-            //    using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("School")))
-            //    using (SqlCommand cmd = new SqlCommand(query, cn))
-            //    {
-            //        cmd.Parameters.Add("@HOST", SqlDbType.NVarChar, 50).Value = rating.Host;
-            //        cmd.Parameters.Add("@METHOD", SqlDbType.NVarChar, 10).Value = rating.Method;
-            //        cmd.Parameters.Add("@PATH", SqlDbType.NVarChar, 50).Value = rating.Path;
-            //        cmd.Parameters.Add("@REFERER", SqlDbType.NVarChar, 100).Value = rating.Referer;
-            //        cmd.Parameters.Add("@USER_AGENT", SqlDbType.NVarChar, 500).Value = rating.UserAgent;
-            //        cmd.Parameters.Add("@Record_Date", SqlDbType.DateTime).Value = rating.RecordDate;
+            //_store326659356Context.Ratings.Add(rating);
+            //  await _store326659356Context.SaveChangesAsync();
 
-            //        cmd.Connection.Open();
-            //        cmd.ExecuteNonQuery();
-                 return rating;
-            //}  }
+            string query = "INSERT INTO RATING(HOST, METHOD, PATH, REFERER, USER_AGENT, Record_Date)" +
+                "VALUES (@HOST, @METHOD, @PATH, @REFERER, @USER_AGENT, @Record_Date)";
+
+            using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("School")))
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                cmd.Parameters.Add("@HOST", SqlDbType.NVarChar, 50).Value = rating.Host;
+                cmd.Parameters.Add("@METHOD", SqlDbType.NVarChar, 10).Value = rating.Method;
+                cmd.Parameters.Add("@PATH", SqlDbType.NVarChar, 50).Value = rating.Path;
+                cmd.Parameters.Add("@REFERER", SqlDbType.NVarChar, 100).Value = rating.Referer;
+                cmd.Parameters.Add("@USER_AGENT", SqlDbType.NVarChar, 500).Value = rating.UserAgent;
+                cmd.Parameters.Add("@Record_Date", SqlDbType.DateTime).Value = rating.RecordDate;
+
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                return rating;
+            }  
         }
     }
 }

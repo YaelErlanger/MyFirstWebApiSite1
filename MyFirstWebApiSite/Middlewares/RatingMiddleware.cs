@@ -18,16 +18,17 @@ namespace MyFirstWebApiSite.Middlewares
 
         public async Task Invoke(HttpContext httpContext, IRatingService ratingService)
         {
-
-             await _next(httpContext);
+            Console.WriteLine("mmmm");
             Rating rating = new Rating();
-            
+             await _next(httpContext);
+
+            DateTime date = DateTime.Now;
             rating.Host = httpContext.Request.Host.ToString();
             rating.Method = httpContext.Request.Method;
             rating.Path = httpContext.Request.Path;
-            rating.Referer = httpContext.Request.Headers.Referer;
-            rating.UserAgent = httpContext.Request.Headers.UserAgent;
-            rating.RecordDate = new DateTime();
+            rating.Referer = httpContext.Request.Headers["Referer"].ToString();
+            rating.UserAgent = httpContext.Request.Headers["User-Agent"].ToString();
+            rating.RecordDate = date;
             await ratingService.addRatingToDB(rating);
            
         }

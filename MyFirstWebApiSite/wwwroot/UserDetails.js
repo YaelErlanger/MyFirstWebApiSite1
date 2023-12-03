@@ -9,10 +9,10 @@ const showUpdateTags = () => {
 
 async function updateUserDetails() {
     try {
-        const Email = document.getElementById("updateName").value
-        const Password = document.getElementById("updatePassword").value
-        const FirstName = document.getElementById("updateFName").value
-        const LastName = document.getElementById("updateLName").value
+        const Email = document.getElementById("Email").value;
+        const Password = document.getElementById("updatePassword").value;
+        const FirstName = document.getElementById("updateFName").value;
+        const LastName = document.getElementById("updateLName").value;
         const user = { Email, Password, FirstName, LastName }
         let UserId = sessionStorage.getItem("userId");
 
@@ -26,7 +26,8 @@ async function updateUserDetails() {
         if (!res.ok)
             throw new Error("error in updating your details ")
         const data = await res.json();
-        alert(`Updated${data.FirstName}`)
+
+        alert(`user ${UserId} Updated`)
     }
     catch (er) {
         alert("error...!!, please try again")

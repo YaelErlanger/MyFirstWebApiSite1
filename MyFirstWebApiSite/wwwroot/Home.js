@@ -94,12 +94,12 @@ async function Register() {
         })
         if (!res.ok) {
             console.log(res)
-           /// alert(res)
+         
             return
         }
         const data = await res.json();
-        sessionStorage.setItem("FirstName", FirstName)
-        sessionStorage.setItem("LastName", LastName)
+        sessionStorage.setItem("user", data)
+        
         sessionStorage.setItem("userId",data.userId)
         alert(`Welcome! ${FirstName} `)
         window.location.href = "UserDetails.html";

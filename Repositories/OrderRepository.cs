@@ -19,7 +19,7 @@ namespace Repositories
         public async Task<OrdersTbl> addOrderToDB(OrdersTbl order)
         {
             await _store326659356Context.OrdersTbls.AddAsync(order);
-            await _store326659356Context.OrderItemTbls.AddAsync((OrderItemTbl)order.OrderItemTbls);
+            //await _store326659356Context.OrderItemTbls.AddAsync((OrderItemTbl)order.OrderItemTbls);
             await _store326659356Context.SaveChangesAsync();
            
 
