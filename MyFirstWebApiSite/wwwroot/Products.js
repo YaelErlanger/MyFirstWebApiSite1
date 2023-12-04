@@ -36,7 +36,15 @@ const getAllProducts = async (name, minPrice, maxPrice, categoryIds) => {
 }
 
 const showProducts = async () => {
+    if (sessionStorage.getItem("shoppingBag")) {
+        cart = JSON.parse(sessionStorage.getItem("shoppingBag"));
+            
+    }
+  
+
+
     const products = await getAllProducts();
+   
     for (let i = 0; i < products.length; i++) {
         var tmpProd = document.getElementById("temp-card");
         var cln = tmpProd.content.cloneNode(true);
@@ -46,12 +54,18 @@ const showProducts = async () => {
         cln.querySelector("p.price").innerText = products[i].price + '$';
         cln.querySelector("button").addEventListener('click', () => { addToShoppingBag(products[i]) });
         document.getElementById("PoductList").appendChild(cln);
+
     }
+    document.getElementById("counter").innerText = products.length;
 }
 
 
 
 const getAllCategories = async () => {
+    count = sessionStorage.getItem("itemCount");
+    console.log(count)
+
+    document.getElementById("ItemsCountText").innerHTML = count;
     try {
         var res =
             await fetch('api/Categories', {
@@ -110,14 +124,14 @@ const filterProducts = async () => {
 
 }
 var cart = [];
-var count = 0;
+var count;
 var sum = 0;
 const addToShoppingBag = (product) => {
-    cart.push(product);
+   
     count++;
     //sum += product.price;
     //sessionStorage.setItem("totalAmount", sum);
-    sessionStorage.setItem("itemCount", count);
+    sessionStorage.setItem("itemCount", count); cart.push(product);
     document.getElementById("ItemsCountText").innerText = count;
     sessionStorage.setItem("shoppingBag", JSON.stringify(cart));
     console.log(cart);

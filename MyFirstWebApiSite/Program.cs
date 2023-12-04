@@ -25,7 +25,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseNLog();
 builder.Services.AddDbContext<MyStore326659356Context>(option => option.UseSqlServer
-(builder.Configuration.GetConnectionString("Home")));
+(builder.Configuration.GetConnectionString("School")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
