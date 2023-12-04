@@ -18,14 +18,13 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
-builder.Services.AddScoped<IMyStore326659356Context, MyStore326659356Context>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseNLog();
 builder.Services.AddDbContext<MyStore326659356Context>(option => option.UseSqlServer
-(builder.Configuration.GetConnectionString("School")));
+(builder.Configuration.GetConnectionString("Home")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

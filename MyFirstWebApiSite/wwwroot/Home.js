@@ -73,7 +73,18 @@ async function Register() {
 
     try {
         const Email = document.getElementById("regName").value
+        let shtrudel = Email.indexOf('@');
+
+        if (shtrudel == -1) {
+            alert("the email must be a valid email address");
+            return;
+        }
+        
         const Password = document.getElementById("regPassword").value
+        if (Password.length < 5) {
+            alert("the password length must be more then 5");
+            return;
+        }
         const FirstName = document.getElementById("regFName").value
         const LastName = document.getElementById("regLName").value
         const result = await fetchPwdStrength(Password)
