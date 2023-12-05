@@ -30,11 +30,10 @@ we used DTO's layer for in order of preventing circular dependency.
 
 the project maps the objects using package AutoMapper.
 we used configuration files for savig sensitive and unconstant data.
-we keeped on logging. the Logger send  an email if exception or error accures
-we also created middlewares for Handling errors and for Raiting. 
+we keeped on logging. the Logger sends  an email if exception or error accures and saves information in dedicated file.
+we created middlewares for Handling errors and for Rating our site. the rating data saves in a table in the DB.
 
 
 
-Wishing you a pleasant and useful use
-
+Hope you enjoyed reading and benefited from it
                          Yael & Chani.
