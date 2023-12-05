@@ -23,7 +23,7 @@ we have maintained password strength using the nuget package zxcvbn-core.
 the struct's project made from layers who connect between them with Dependency Injections, in order to earn  the advantages of the DI as making the application more encapsulated and flexible,
 Enables parallel development, decoupling between the class and its dependencies.
 we used Asynchronous function for adding Scalability.
-we have a swagger that describes our project structure, if you want to, you can use it by the rout:"localhost:[PORT NUMBER]/swagger" and see everything documented neatly.
+we have a swagger that describes our project structure, if you want to, you can use it by the path:"localhost:[PORT NUMBER]/swagger" and see everything documented neatly.
 
 we used DTO's layer for in order of preventing circular dependency.
 
@@ -31,7 +31,7 @@ we used DTO's layer for in order of preventing circular dependency.
 the project maps the objects using package AutoMapper.
 we used configuration files for savig sensitive and unconstant data.
 we keeped on logging. the Logger send  an email if exception or error accures
-we also created middlewares for Handling errors and Raiting. 
+we also created middlewares for Handling errors and for Raiting. 
 
 
 
