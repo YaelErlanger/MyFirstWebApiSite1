@@ -5,7 +5,7 @@ function drowProducts(product) {
     cln.querySelector("img").src = "./images/" + product.image;
     cln.querySelector(".price").innerText = product.price + "$";
     cln.querySelector(".descriptionColumn").innerText = product.description;
-    cln.querySelector(".totalColumn").addEventListener('click', () => { deleteProduct(product.productId) });
+    cln.querySelector(".totalColumn").addEventListener('click', () => { deleteProduct(product) });
     document.getElementById("items").appendChild(cln);
 }
 function getProducts() {
@@ -23,10 +23,18 @@ function getProducts() {
     document.getElementById("totalAmount").innerText = sessionStorage.getItem("totalAmount");
 
 }
-function deleteProduct(productId) {
+function deleteProduct(product) {
     document.getElementById("items").innerHTML = "";
     let products = JSON.parse(sessionStorage.getItem("shoppingBag"))
-    let updatedList= products.filter(p => p.productId !== productId);
+
+    var index = products.findIndex(prod => prod.productId == product.productId);
+    if (index !== -1) {
+        products.splice(index, 1); 
+    }
+   
+
+
+    let updatedList = products;
     sessionStorage.setItem("shoppingBag", []);
     sessionStorage.setItem("shoppingBag", JSON.stringify(updatedList));
     getProducts();
