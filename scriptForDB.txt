@@ -1,0 +1,980 @@
+USE [master]
+GO
+/****** Object:  Database [MyStore_326659356]    Script Date: 11/12/2023 16:29:43 ******/
+CREATE DATABASE [MyStore_326659356]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'MyStore_326659356', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MyStore_326659356.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'MyStore_326659356_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MyStore_326659356_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [MyStore_326659356] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [MyStore_326659356].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [MyStore_326659356] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [MyStore_326659356] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [MyStore_326659356] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [MyStore_326659356] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [MyStore_326659356] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [MyStore_326659356] SET  MULTI_USER 
+GO
+ALTER DATABASE [MyStore_326659356] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [MyStore_326659356] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [MyStore_326659356] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [MyStore_326659356] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [MyStore_326659356] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [MyStore_326659356] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [MyStore_326659356] SET QUERY_STORE = OFF
+GO
+USE [MyStore_326659356]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Caegories_tbl]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Caegories_tbl](
+	[CategoryId] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryName] [char](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CategoryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderItem_tbl]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderItem_tbl](
+	[OrderItemId] [int] IDENTITY(1,1) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[Quantity] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders_tbl]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Orders_tbl](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderDate] [date] NULL,
+	[OrderSum] [float] NULL,
+	[UserId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Products_tbl]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Products_tbl](
+	[ProductId] [int] IDENTITY(1,1) NOT NULL,
+	[ProductName] [char](20) NOT NULL,
+	[Description] [char](200) NULL,
+	[CategoryId] [int] NOT NULL,
+	[price] [int] NOT NULL,
+	[image] [varchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RATING]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RATING](
+	[RATING_ID] [int] IDENTITY(1,1) NOT NULL,
+	[HOST] [nvarchar](50) NULL,
+	[METHOD] [nchar](10) NULL,
+	[PATH] [nvarchar](50) NULL,
+	[REFERER] [nvarchar](100) NULL,
+	[USER_AGENT] [nvarchar](max) NULL,
+	[Record_Date] [datetime] NULL,
+ CONSTRAINT [PK_RATING] PRIMARY KEY CLUSTERED 
+(
+	[RATING_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users_tbl]    Script Date: 11/12/2023 16:29:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users_tbl](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [char](30) NOT NULL,
+	[FirstName] [char](30) NULL,
+	[LastName] [char](30) NULL,
+	[Password] [char](30) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Caegories_tbl] ON 
+GO
+INSERT [dbo].[Caegories_tbl] ([CategoryId], [CategoryName]) VALUES (18, N'כלי מיתר            ')
+GO
+INSERT [dbo].[Caegories_tbl] ([CategoryId], [CategoryName]) VALUES (19, N'כלי נשיפה           ')
+GO
+INSERT [dbo].[Caegories_tbl] ([CategoryId], [CategoryName]) VALUES (20, N'כלי הקשה            ')
+GO
+INSERT [dbo].[Caegories_tbl] ([CategoryId], [CategoryName]) VALUES (21, N'קלידים              ')
+GO
+SET IDENTITY_INSERT [dbo].[Caegories_tbl] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Orders_tbl] ON 
+GO
+INSERT [dbo].[Orders_tbl] ([OrderId], [OrderDate], [OrderSum], [UserId]) VALUES (1, CAST(N'2023-11-09' AS Date), 455, 6)
+GO
+SET IDENTITY_INSERT [dbo].[Orders_tbl] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Products_tbl] ON 
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (66, N'גיטרה אקוסטית       ', N'גיטרה אקוסטית מקצועית                                                                                                                                                                                   ', 18, 650, N'גיטרה אקוסטית.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (67, N'גיטרה חשמלית        ', N'גיטרה חשמלית חדשנית ואלגנטית                                                                                                                                                                            ', 18, 599, N'גיטרה חשמלית.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (68, N'גיטרה קלאסית        ', N'גיטרה קלאסית יעודית למתחילים                                                                                                                                                                            ', 18, 650, N'גיטרה קלאסית.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (69, N'צלו                 ', N' G-5290 צלו                                                                                                                                                                                             ', 18, 899, N'צלו.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (70, N'כינור               ', N'כינור מקצועי, מגיע עם אביזרים נוספים                                                                                                                                                                    ', 18, 1200, N'כינור.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (71, N'אורגן               ', N' korg-900 אורגן                                                                                                                                                                                         ', 21, 7899, N'organ.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (72, N'פסנתר כנף           ', N' פסנתר כנף שחור מבריק                                                                                                                                                                                   ', 21, 85000, N'piano1.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (73, N'אורגן חשמלי         ', N'אורגן חשמלי אדום מגניב                                                                                                                                                                                  ', 21, 6500, N'redPianopng.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (74, N'פסנתר כנף           ', N' פסנתר כנף לבן מודרני                                                                                                                                                                                   ', 21, 82500, N'whitePianopng.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (75, N'פסנתר כנף           ', N'פסנתר כנף חום בסגנון וינטאג                                                                                                                                                                             ', 21, 79000, N'brownPiano.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (76, N'תופים אלקטרוניים    ', N'הסוף לרעש! תופים בחיבור לאוזניות                                                                                                                                                                        ', 20, 11000, N'תופים_אלקטרוניים.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (78, N'קחון                ', N'קחון עץ בצבע שחור, איכותי במיוחד                                                                                                                                                                        ', 20, 300, N'קחון_עץ.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (79, N'תופים               ', N'תופים מדליקים בצבע סגול                                                                                                                                                                                 ', 20, 500, N'paperDrums.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (80, N'מערכת תופים         ', N'מערכת תופים בצבע אדום                                                                                                                                                                                   ', 20, 699, N'redDrums.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (81, N'כינור חשמלי         ', N'כינור חשמלי משוכלל                                                                                                                                                                                      ', 18, 1000, N'כינור חשמלי.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (82, N'סקסופון             ', N'סקסופון קלאסי                                                                                                                                                                                           ', 19, 800, N'סקסופון.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (83, N'סקסופון אלט         ', N'סקסופון לקול אלט                                                                                                                                                                                        ', 19, 850, N'סקסופון.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (84, N'סקסופון סופרן       ', N'סקסופון לקול סופרן                                                                                                                                                                                      ', 19, 850, N'סקסופון.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (86, N'חצוצרה              ', N'חצוצרה איכותית                                                                                                                                                                                          ', 19, 700, N'חצוצרה.png')
+GO
+INSERT [dbo].[Products_tbl] ([ProductId], [ProductName], [Description], [CategoryId], [price], [image]) VALUES (88, N'גיטרה צבעונית       ', N'גיטרה צבעונית מיוחדת                                                                                                                                                                                    ', 18, 215, N'גיטרה_צבעונית.png')
+GO
+SET IDENTITY_INSERT [dbo].[Products_tbl] OFF
+GO
+SET IDENTITY_INSERT [dbo].[RATING] ON 
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (1, N'jjj', N'jjj       ', N'jjj', N'jjj', N'jjj', CAST(N'2023-12-03T17:43:37.763' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (2, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:31:05.383' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (3, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:31:44.777' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (4, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:37:20.967' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (5, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:37:30.710' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (6, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:44:38.617' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (7, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:44:40.657' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (8, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=newuser@gmail.com', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:46:05.457' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (9, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:47:25.433' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (10, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:47:27.040' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (11, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=yyy', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:47:38.760' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (12, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=yyy', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:48:54.883' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (13, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:50:09.087' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (14, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:50:11.233' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (15, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=yael', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:50:33.577' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (16, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:51:11.413' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (17, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:51:13.330' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (18, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:51:44.290' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (19, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:51:46.070' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (20, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=trtr', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:52:02.353' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (21, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:55:00.823' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (22, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:55:02.680' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (23, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=ee', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:55:16.217' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (24, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:56:22.043' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (25, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:56:23.803' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (26, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=oooo', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:56:35.853' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (27, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:57:04.647' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (28, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:57:06.660' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (29, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=yyy', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:57:14.657' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (30, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:32.070' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (31, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:33.873' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (32, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:33.873' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (33, N'localhost:7269', N'PUT       ', N'/api/Users/9', N'https://localhost:7269/userDetails.html?firstName=bbb', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:42.863' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (34, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:46.730' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (35, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:46.810' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (36, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:54.410' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (37, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:58:58.680' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (38, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:02.320' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (39, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:20.267' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (40, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:27.453' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (41, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:31.400' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (42, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:34.920' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (43, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:39.057' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (44, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:42.013' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (45, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:42.997' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (46, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T18:59:50.290' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (47, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:03:49.983' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (48, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:03:49.987' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (49, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:03:53.140' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (50, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:03:55.230' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (51, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:03:55.233' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (52, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:06.460' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (53, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:08.303' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (54, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:09.533' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (55, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:09.603' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (56, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:13.717' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (57, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:13.737' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (58, N'localhost:7269', N'POST      ', N'/api/Orders', N'https://localhost:7269/shoppingbag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:05:44.430' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (59, N'localhost:7269', N'POST      ', N'/api/Orders', N'https://localhost:7269/shoppingbag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:10:09.193' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (60, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:14:45.967' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (61, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:14:45.977' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (62, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:15:06.057' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (63, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:15:06.063' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (64, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:32.450' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (65, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:34.407' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (66, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:35.487' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (67, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:35.560' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (68, N'localhost:7269', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:35.567' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (69, N'localhost:7269', N'GET       ', N'/images/%D7%97%D7%A6%D7%95%D7%A6%D7%A8%D7%94.png', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:37:35.570' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (70, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.150' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (71, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.160' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (72, N'localhost:7269', N'GET       ', N'/images/alto%20sax2.png', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.177' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (73, N'localhost:7269', N'GET       ', N'/images/soprano%20sax.png', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.180' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (74, N'localhost:7269', N'GET       ', N'/images/%D7%97%D7%A6%D7%95%D7%A6%D7%A8%D7%94.png', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.180' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (75, N'localhost:7269', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:7269/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:36.180' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (76, N'localhost:7269', N'POST      ', N'/api/Orders', N'https://localhost:7269/shoppingbag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:43:52.177' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (77, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:45:37.417' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (78, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:45:39.220' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (79, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:45:40.550' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (80, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:45:40.633' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (81, N'localhost:7269', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:45:40.643' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (82, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:58:59.053' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (83, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:59:00.330' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (84, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:59:00.390' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (85, N'localhost:7269', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:59:00.403' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (86, N'localhost:7269', N'POST      ', N'/api/Orders', N'https://localhost:7269/shoppingbag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-03T19:59:13.437' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (87, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:05.143' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (88, N'localhost:44300', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:22.977' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (89, N'localhost:44300', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:47.300' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (90, N'localhost:44300', N'POST      ', N'/api/Users', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:47.940' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (91, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:56.523' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (92, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:56.547' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (93, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T11:59:56.557' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (94, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:23.867' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (95, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:23.873' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (96, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:23.883' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (97, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:25.170' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (98, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:25.173' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (99, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:00:25.190' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (100, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:32.273' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (101, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:32.280' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (102, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:32.297' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (103, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:52.413' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (104, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:53.283' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (105, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:57.973' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (106, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:01:58.840' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (107, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:02:04.553' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (108, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:02:08.503' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (109, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:32:57.593' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (110, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:32:58.357' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (111, N'localhost:44300', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:33:47.077' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (112, N'localhost:44300', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:04.380' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (113, N'localhost:44300', N'POST      ', N'/api/Users', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:04.913' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (114, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:15.870' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (115, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:15.893' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (116, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:15.900' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (117, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:40.187' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (118, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:58.093' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (119, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:58.100' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (120, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:34:58.113' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (121, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:30.787' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (122, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:34.780' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (123, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:40.947' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (124, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:48.737' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (125, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:48.743' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (126, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:48.750' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (127, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:50.370' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (128, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:56.220' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (129, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:35:57.090' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (130, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:36:07.670' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (131, N'localhost:44300', N'POST      ', N'/api/Orders', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:36:08.597' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (132, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:37:41.337' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (133, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:37:49.153' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (134, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:37:56.553' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (135, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:02.950' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (136, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:02.953' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (137, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:03.000' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (138, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:05.610' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (139, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:05.613' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (140, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:05.620' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (141, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:38:14.160' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (142, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:40:57.220' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (143, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:41:36.250' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (144, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:41:43.453' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (145, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:41:43.513' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (146, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:41:43.520' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (147, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:42:00.167' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (148, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:42:00.183' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (149, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:42:00.187' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (150, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T12:48:15.770' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (151, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:51:56.120' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (152, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:52:05.300' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (153, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:52:08.093' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (154, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:52:08.153' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (155, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:52:08.213' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (156, N'localhost:44300', N'GET       ', N'/images/undefined', N'https://localhost:44300/ShoppingBag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:52:17.567' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (157, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:07.893' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (158, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:10.393' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (159, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:14.470' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (160, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:14.533' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (161, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:14.540' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (162, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:22.510' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (163, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:22.523' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (164, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:22.530' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (165, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:27.560' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (166, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:27.553' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (167, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:27.570' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (168, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:31.343' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (169, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:31.340' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (170, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:57:31.363' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (171, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:07.967' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (172, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:07.970' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (173, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:07.977' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (174, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.173' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (175, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.180' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (176, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.197' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (177, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.353' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (178, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.360' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (179, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.377' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (180, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.527' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (181, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.530' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (182, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.547' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (183, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.760' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (184, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.763' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (185, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.780' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (186, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.927' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (187, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.930' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (188, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:11.943' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (189, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.137' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (190, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.143' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (191, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.160' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (192, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.283' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (193, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.290' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (194, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:12.307' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (195, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:15.740' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (196, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:15.747' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (197, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:15.767' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (198, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:20.713' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (199, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:20.720' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (200, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:20.720' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (201, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:20.743' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (202, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:22.730' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (203, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:22.730' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (204, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:22.740' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (205, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:22.787' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (206, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:25.150' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (207, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:25.153' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (208, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:58:25.160' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (209, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:01.720' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (210, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:01.723' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (211, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:01.730' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (212, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:03.970' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (213, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:03.977' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (214, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:03.980' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (215, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:07.687' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (216, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:07.693' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (217, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:07.697' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (218, N'localhost:44300', N'GET       ', N'/Products.htm', N'', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:11.000' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (219, N'localhost:44300', N'GET       ', N'/Products.htm', N'', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:14.250' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (220, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:22.907' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (221, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:22.913' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (222, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:22.920' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (223, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:31.263' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (224, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:31.267' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (225, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T13:59:31.273' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (226, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:13.783' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (227, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:13.790' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (228, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:13.793' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (229, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:16.073' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (230, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:16.080' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (231, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:16.083' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (232, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:17.213' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (233, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:18.300' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (234, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:18.750' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (235, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:19.100' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (236, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:19.767' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (237, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:20.380' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (238, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:20.790' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (239, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:23.070' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (240, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:25.493' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (241, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:25.497' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (242, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:25.503' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (243, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:30.073' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (244, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:30.080' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (245, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:30.083' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (246, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:35.127' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (247, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:37.337' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (248, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:39.107' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (249, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:39.163' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (250, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:00:39.170' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (251, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:06.477' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (252, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:06.490' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (253, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:06.497' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (254, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:35.163' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (255, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:35.157' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (256, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:35.170' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (257, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:37.713' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (258, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:37.717' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (259, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:37.723' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (260, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:58.670' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (261, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:58.673' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (262, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:01:58.680' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (263, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:41.390' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (264, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:41.390' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (265, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:41.397' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (266, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.197' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (267, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.203' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (268, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.210' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (269, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.360' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (270, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.363' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (271, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.370' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (272, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.543' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (273, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.550' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (274, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:44.557' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (275, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:51.390' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (276, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:51.397' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (277, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:51.447' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (278, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:58.487' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (279, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:58.493' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (280, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:02:58.533' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (281, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:03:15.793' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (282, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:03:15.793' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (283, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:03:15.817' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (284, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:08.363' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (285, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:08.367' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (286, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:13.500' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (287, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:13.503' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (288, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:14.097' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (289, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:14.100' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (290, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:14.293' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (291, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:14.297' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (292, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.243' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (293, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.250' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (294, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.477' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (295, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.483' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (296, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.697' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (297, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.703' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (298, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.913' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (299, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:17.917' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (300, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:34.923' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (301, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:34.927' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (302, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:35.360' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (303, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:35.367' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (304, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:35.580' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (305, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:35.587' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (306, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.203' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (307, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.207' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (308, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.397' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (309, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.400' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (310, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.603' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (311, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/Products.html?fromShoppingBag=1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:38.607' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (312, N'localhost:44300', N'GET       ', N'/favicon.ico', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:47.217' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (313, N'localhost:44300', N'POST      ', N'/api/Users/Login', N'https://localhost:44300/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:52.893' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (314, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:54.507' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (315, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:54.570' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (316, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:05:54.577' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (317, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:18.860' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (318, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:18.873' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (319, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:18.877' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (320, N'localhost:44300', N'GET       ', N'/api/Products', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:26.667' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (321, N'localhost:44300', N'GET       ', N'/api/Categories', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:26.660' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (322, N'localhost:44300', N'GET       ', N'/images/saxsophone.tif', N'https://localhost:44300/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-04T14:06:26.683' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (323, N'localhost:7269', N'GET       ', N'/favicon.ico', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:23:48.150' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (324, N'localhost:7269', N'POST      ', N'/api/Users/Login', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:23:56.683' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (325, N'localhost:7269', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:10.730' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (326, N'localhost:7269', N'POST      ', N'/api/Users/checkYourPass', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:27.547' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (327, N'localhost:7269', N'POST      ', N'/api/Users', N'https://localhost:7269/Home.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:28.057' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (328, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:32.413' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (329, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:32.573' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (330, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:24:52.620' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (331, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:25:01.343' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (332, N'localhost:7269', N'POST      ', N'/api/Orders', N'https://localhost:7269/shoppingbag.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:26:30.413' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (333, N'localhost:7269', N'GET       ', N'/api/Categories', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:28:33.660' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (334, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:28:33.687' AS DateTime))
+GO
+INSERT [dbo].[RATING] ([RATING_ID], [HOST], [METHOD], [PATH], [REFERER], [USER_AGENT], [Record_Date]) VALUES (335, N'localhost:7269', N'GET       ', N'/api/Products', N'https://localhost:7269/products.html', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36', CAST(N'2023-12-11T16:28:46.727' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[RATING] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users_tbl] ON 
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (1, N'yael@gmail.com                ', N'yael                          ', N'erlanger                      ', N'yael@gmail.com                ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (5, N'vvvvv                         ', N'fgh                           ', N'hgj                           ', N'vvvbvcgjhukhhjljo;            ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (6, N'yyyy                          ', N'striyyng                      ', N'string                        ', N'yael087.!F                    ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (7, N'user@gmail.com                ', N'user                          ', N'user                          ', N'user@gmail.com                ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (8, N'ttt                           ', N'tt                            ', N'tt                            ', N'ttukfkugyo-ui                 ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (9, N'newuser@gmail.com             ', N'ttt                           ', N'tttt                          ', N'newuser@gmail.com             ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (10, N'chanip654321@gmail.com        ', N'chani                         ', N'polsky                        ', N'chanip654321@gmail.com        ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (11, N'avigd1229@gmail.com           ', N'avi                           ', N'druck                         ', N'328281076                     ')
+GO
+INSERT [dbo].[Users_tbl] ([UserId], [Email], [FirstName], [LastName], [Password]) VALUES (12, N'411@gmail.com                 ', N'rt                            ', N'ruti                          ', N'411@gmail.com                 ')
+GO
+SET IDENTITY_INSERT [dbo].[Users_tbl] OFF
+GO
+ALTER TABLE [dbo].[OrderItem_tbl] ADD  DEFAULT ((1)) FOR [Quantity]
+GO
+ALTER TABLE [dbo].[OrderItem_tbl]  WITH CHECK ADD  CONSTRAINT [fk_OrderItemTbl_OrderId] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[Orders_tbl] ([OrderId])
+GO
+ALTER TABLE [dbo].[OrderItem_tbl] CHECK CONSTRAINT [fk_OrderItemTbl_OrderId]
+GO
+ALTER TABLE [dbo].[OrderItem_tbl]  WITH CHECK ADD  CONSTRAINT [fk_OrderItemTbl_ProductId] FOREIGN KEY([ProductId])
+REFERENCES [dbo].[Products_tbl] ([ProductId])
+GO
+ALTER TABLE [dbo].[OrderItem_tbl] CHECK CONSTRAINT [fk_OrderItemTbl_ProductId]
+GO
+ALTER TABLE [dbo].[Orders_tbl]  WITH CHECK ADD  CONSTRAINT [fk_OrdersTbl_OrderId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users_tbl] ([UserId])
+GO
+ALTER TABLE [dbo].[Orders_tbl] CHECK CONSTRAINT [fk_OrdersTbl_OrderId]
+GO
+ALTER TABLE [dbo].[Products_tbl]  WITH CHECK ADD  CONSTRAINT [FK_Products_tbl_Caegories_tbl] FOREIGN KEY([CategoryId])
+REFERENCES [dbo].[Caegories_tbl] ([CategoryId])
+GO
+ALTER TABLE [dbo].[Products_tbl] CHECK CONSTRAINT [FK_Products_tbl_Caegories_tbl]
+GO
+USE [master]
+GO
+ALTER DATABASE [MyStore_326659356] SET  READ_WRITE 
+GO
